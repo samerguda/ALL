@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Component</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 28px 24px 20px;
+      border-radius: 20px;
+      border-top: 6px solid #ff6600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #2b2b2b;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      background-color: #f9f9fb;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .copy-btn {
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      padding: 6px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: #e05500;
+    }
+
+    .info-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333333;
+      direction: ltr; /* للحفاظ على ترتيب الأرقام والرموز بشكل صحيح */
+    }
+
+    .info-text span.label {
+      direction: rtl;
+      display: inline-block;
+    }
+
+    .footer-text {
+      color: #777777;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2 class="card-title">Samer Alsaadni</h2>
+
+    <div class="info-list">
+      <!-- الرقم -->
+      <div class="info-item">
+        <button class="copy-btn">نسخ</button>
+        <div class="info-text">
+          <span class="label">الرقم: </span>+32492862991
+        </div>
+      </div>
+
+      <!-- PIN -->
+      <div class="info-item">
+        <button class="copy-btn">نسخ</button>
+        <div class="info-text">PIN: 7857</div>
+      </div>
+
+      <!-- PUK -->
+      <div class="info-item">
+        <button class="copy-btn">نسخ</button>
+        <div class="info-text">PUK: 82709270</div>
+      </div>
+    </div>
+
+    <div class="footer-text">
+      بطاقة بيانات Orange Belgium
+    </div>
+  </div>
+
+</body>
+</html>
