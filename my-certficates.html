@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>معرض الشهادات الاحترافي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 40px 20px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    /* الهيدر */
+    .header { text-align: center; margin-bottom: 30px; }
+    .header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; }
+    .header p { color: var(--muted); font-size: 1.1rem; }
+
+    /* إحصائيات سريعة */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow);
+    }
+    .stat-icon {
+      width: 48px; height: 48px;
+      background: #eff6ff;
+      color: var(--primary);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .stat-info h3 { font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
+    .stat-info p { font-size: 0.85rem; color: var(--muted); }
+
+    /* أدوات التحكم: بحث + فلاتر + تبديل العرض */
+    .controls-bar {
+      background: var(--surface);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      outline: none;
+      font-size: 0.95rem;
+      background: var(--bg);
+    }
+    .search-box i {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .tag-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tag-btn.active, .tag-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 4px;
+      background: var(--bg);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .view-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .view-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* الشبكة والقائمة */
+    .certs-container.grid-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .certs-container.list-view {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* تصميم الكارت (Grid View) */
+    .cert-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .cert-card:hover { transform: translateY(-4px); }
+
+    .cert-thumb {
+      height: 170px;
+      background: #e2e8f0;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .cert-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+    .cert-card:hover .cert-thumb img { transform: scale(1.05); }
+
+    .cert-details { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .cert-badge {
+      align-self: flex-start;
+      background: #dbeafe;
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .cert-title { font-size: 1.05rem; font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
+    .cert-meta { font-size: 0.82rem; color: var(--muted); margin-top: auto; padding-top: 10px; display: flex; justify-content: space-between; }
+
+    /* تصميم السطر (List View) */
+    .list-view .cert-card {
+      flex-direction: row;
+      align-items: center;
+      padding: 12px 20px;
+    }
+    .list-view .cert-thumb { display: none; }
+    .list-view .cert-details { padding: 0; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; }
+    .list-view .cert-title { margin-bottom: 0; font-size: 0.98rem; flex: 2; }
+    .list-view .cert-badge { margin-bottom: 0; }
+    .list-view .cert-meta { padding-top: 0; margin-top: 0; flex: 1; justify-content: flex-end; gap: 20px; }
+
+    /* زر تحميل المزيد */
+    .load-more-wrapper { text-align: center; margin-top: 40px; }
+    .btn-load-more {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+    .btn-load-more:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Modal مع التنقل */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #000;
+      max-width: 900px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-box img { max-width: 100%; max-height: 80vh; object-fit: contain; }
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: none;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+    .modal-prev { right: 15px; }
+    .modal-next { left: 15px; }
+    .modal-close {
+      position: absolute;
+      top: 15px; left: 15px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: none;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- الهيدر -->
+    <header class="header">
+      <h1>معرض الاعتمادات والشهادات</h1>
+      <p>تصفح أرشيف الشهادات الأكاديمية والمهنية والتخصصية</p>
+    </header>
+
+    <!-- الإحصائيات -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="stat-info">
+          <h3 id="statTotal">50</h3>
+          <p>إجمالي الشهادات</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+        <div class="stat-info">
+          <h3>+600</h3>
+          <p>ساعة تدريبية</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="stat-info">
+          <h3>8</h3>
+          <p>جهات اعتماد عالمية</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- شريط التحكم والفلترة -->
+    <div class="controls-bar">
+      <!-- البحث -->
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="ابحث باسم الشهادة أو الجهة...">
+      </div>
+
+      <!-- التصنيفات -->
+      <div class="filter-tags">
+        <button class="tag-btn active" data-filter="all">الكل</button>
+        <button class="tag-btn" data-filter="dev">تطوير الويب</button>
+        <button class="tag-btn" data-filter="cloud">السحابية و DevOps</button>
+        <button class="tag-btn" data-filter="data">البيانات والذكاء الاصطناعي</button>
+      </div>
+
+      <!-- تبديل طريقة العرض -->
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnGrid" title="عرض شبكي"><i class="fa-solid fa-table-cells-large"></i></button>
+        <button class="view-btn" id="btnList" title="عرض قائمة"><i class="fa-solid fa-list"></i></button>
+      </div>
+    </div>
+
+    <!-- حاوية الشهادات -->
+    <div class="certs-container grid-view" id="certsGrid"></div>
+
+    <!-- زر تحميل المزيد -->
+    <div class="load-more-wrapper">
+      <button class="btn-load-more" id="btnLoadMore">عرض المزيد من الشهادات</button>
+    </div>
+
+  </div>
+
+  <!-- Modal العرض والتنقل -->
+  <div class="modal" id="certModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <button class="modal-nav modal-prev" onclick="navigateModal(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      <img id="modalImg" src="" alt="الشهادة">
+      <button class="modal-nav modal-next" onclick="navigateModal(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+    </div>
+  </div>
+
+  <script>
+    // توليد بيانات وهمية لـ 50 شهادة لغرض المعاينة السريعة
+    const categories = ['dev', 'cloud', 'data'];
+    const issuers = ['Coursera', 'Udacity', 'AWS', 'Google', 'DeepLearning.AI', 'Microsoft'];
+    
+    const certificates = Array.from({ length: 50 }, (_, i) => ({
+      id: i + 1,
+      title: `شهادة تخصصية احترافية رقم #${i + 1}`,
+      issuer: issuers[i % issuers.length],
+      category: categories[i % categories.length],
+      date: `202${(i % 4) + 1}`,
+      image: `https://via.placeholder.com/600x400?text=Certificate+${i + 1}`
+    }));
+
+    let visibleCount = 12;
+    let filteredCerts = [...certificates];
+    let currentModalIndex = 0;
+
+    const certsGrid = document.getElementById('certsGrid');
+    const btnLoadMore = document.getElementById('btnLoadMore');
+
+    function renderCertificates() {
+      certsGrid.innerHTML = '';
+      const itemsToRender = filteredCerts.slice(0, visibleCount);
+
+      itemsToRender.forEach((cert, index) => {
+        const card = document.createElement('div');
+        card.className = 'cert-card';
+        card.innerHTML = `
+          <div class="cert-thumb" onclick="openModal(${index})">
+            <img src="${cert.image}" alt="${cert.title}" loading="lazy">
+          </div>
+          <div class="cert-details">
+            <span class="cert-badge">${cert.issuer}</span>
+            <h3 class="cert-title">${cert.title}</h3>
+            <div class="cert-meta">
+              <span><i class="fa-regular fa-calendar"></i> ${cert.date}</span>
+              <a href="#" style="color:var(--primary); text-decoration:none; font-weight:700;">تحقق <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i></a>
+            </div>
+          </div>
+        `;
+        certsGrid.appendChild(card);
+      });
+
+      // إخفاء زر التحميل إذا انتهت العناصر
+      btnLoadMore.style.display = visibleCount >= filteredCerts.length ? 'none' : 'inline-block';
+    }
+
+    // زر تحميل المزيد
+    btnLoadMore.addEventListener('click', () => {
+      visibleCount += 12;
+      renderCertificates();
+    });
+
+    // البحث والفلترة
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      filteredCerts = certificates.filter(c => c.title.toLowerCase().includes(query) || c.issuer.toLowerCase().includes(query));
+      visibleCount = 12;
+      renderCertificates();
+    });
+
+    document.querySelectorAll('.tag-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        filteredCerts = filter === 'all' ? [...certificates] : certificates.filter(c => c.category === filter);
+        visibleCount = 12;
+        renderCertificates();
+      });
+    });
+
+    // تبديل Grid / List
+    document.getElementById('btnGrid').addEventListener('click', function() {
+      certsGrid.className = 'certs-container grid-view';
+      this.classList.add('active');
+      document.getElementById('btnList').classList.remove('active');
+    });
+    document.getElementById('btnList').addEventListener('click', function() {
+      certsGrid.className = 'certs-container list-view';
+      this.classList.add('active');
+      document.getElementById('btnGrid').classList.remove('active');
+    });
+
+    // Modal
+    function openModal(index) {
+      currentModalIndex = index;
+      document.getElementById('modalImg').src = filteredCerts[currentModalIndex].image;
+      document.getElementById('certModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('certModal').style.display = 'none';
+    }
+    function navigateModal(direction) {
+      currentModalIndex += direction;
+      if (currentModalIndex < 0) currentModalIndex = filteredCerts.length - 1;
+      if (currentModalIndex >= filteredCerts.length) currentModalIndex = 0;
+      document.getElementById('modalImg').src = filteredCerts[currentModalIndex].image;
+    }
+
+    // التشغيل الأول
+    renderCertificates();
+  </script>
+</body>
+</html>
