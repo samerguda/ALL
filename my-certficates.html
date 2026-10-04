@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>معرض الشهادات الاحترافي</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Professional Certificates Portfolio</title>
+  <!-- Google Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -20,16 +22,16 @@
       --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 40px 20px; }
     .container { max-width: 1280px; margin: 0 auto; }
 
-    /* الهيدر */
+    /* Header */
     .header { text-align: center; margin-bottom: 30px; }
     .header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; }
     .header p { color: var(--muted); font-size: 1.1rem; }
 
-    /* إحصائيات سريعة */
+    /* Quick Stats */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -57,7 +59,7 @@
     .stat-info h3 { font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
     .stat-info p { font-size: 0.85rem; color: var(--muted); }
 
-    /* أدوات التحكم: بحث + فلاتر + تبديل العرض */
+    /* Controls Bar: Search + Filters + View Toggle */
     .controls-bar {
       background: var(--surface);
       padding: 16px 20px;
@@ -79,7 +81,7 @@
     }
     .search-box input {
       width: 100%;
-      padding: 10px 40px 10px 16px;
+      padding: 10px 16px 10px 40px;
       border-radius: 30px;
       border: 1px solid var(--border);
       outline: none;
@@ -88,7 +90,7 @@
     }
     .search-box i {
       position: absolute;
-      right: 14px; top: 50%;
+      left: 14px; top: 50%;
       transform: translateY(-50%);
       color: var(--muted);
     }
@@ -139,7 +141,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    /* الشبكة والقائمة */
+    /* Container Grid / List */
     .certs-container.grid-view {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -151,7 +153,7 @@
       gap: 12px;
     }
 
-    /* تصميم الكارت (Grid View) */
+    /* Card Design (Grid View) */
     .cert-card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -186,9 +188,9 @@
       margin-bottom: 8px;
     }
     .cert-title { font-size: 1.05rem; font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
-    .cert-meta { font-size: 0.82rem; color: var(--muted); margin-top: auto; padding-top: 10px; display: flex; justify-content: space-between; }
+    .cert-meta { font-size: 0.82rem; color: var(--muted); margin-top: auto; padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
 
-    /* تصميم السطر (List View) */
+    /* List View Overrides */
     .list-view .cert-card {
       flex-direction: row;
       align-items: center;
@@ -200,7 +202,7 @@
     .list-view .cert-badge { margin-bottom: 0; }
     .list-view .cert-meta { padding-top: 0; margin-top: 0; flex: 1; justify-content: flex-end; gap: 20px; }
 
-    /* زر تحميل المزيد */
+    /* Load More Button */
     .load-more-wrapper { text-align: center; margin-top: 40px; }
     .btn-load-more {
       background: var(--surface);
@@ -215,7 +217,7 @@
     }
     .btn-load-more:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* Modal مع التنقل */
+    /* Modal Navigation */
     .modal {
       display: none;
       position: fixed;
@@ -251,11 +253,11 @@
       cursor: pointer;
       backdrop-filter: blur(4px);
     }
-    .modal-prev { right: 15px; }
-    .modal-next { left: 15px; }
+    .modal-prev { left: 15px; }
+    .modal-next { right: 15px; }
     .modal-close {
       position: absolute;
-      top: 15px; left: 15px;
+      top: 15px; right: 15px;
       background: rgba(255,255,255,0.2);
       color: #fff;
       border: none;
@@ -269,92 +271,93 @@
 
   <div class="container">
     
-    <!-- الهيدر -->
+    <!-- Header -->
     <header class="header">
-      <h1>معرض الاعتمادات والشهادات</h1>
-      <p>تصفح أرشيف الشهادات الأكاديمية والمهنية والتخصصية</p>
+      <h1>Certificates & Credentials</h1>
+      <p>Explore my collection of verified professional certifications and coursework</p>
     </header>
 
-    <!-- الإحصائيات -->
+    <!-- Stats Overview -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
         <div class="stat-info">
           <h3 id="statTotal">50</h3>
-          <p>إجمالي الشهادات</p>
+          <p>Certifications</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
         <div class="stat-info">
           <h3>+600</h3>
-          <p>ساعة تدريبية</p>
+          <p>Learning Hours</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
         <div class="stat-info">
           <h3>8</h3>
-          <p>جهات اعتماد عالمية</p>
+          <p>Issuing Bodies</p>
         </div>
       </div>
     </div>
 
-    <!-- شريط التحكم والفلترة -->
+    <!-- Controls Bar -->
     <div class="controls-bar">
-      <!-- البحث -->
+      <!-- Search Input -->
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="ابحث باسم الشهادة أو الجهة...">
+        <input type="text" id="searchInput" placeholder="Search by certificate title or issuer...">
       </div>
 
-      <!-- التصنيفات -->
+      <!-- Filter Tags -->
       <div class="filter-tags">
-        <button class="tag-btn active" data-filter="all">الكل</button>
-        <button class="tag-btn" data-filter="dev">تطوير الويب</button>
-        <button class="tag-btn" data-filter="cloud">السحابية و DevOps</button>
-        <button class="tag-btn" data-filter="data">البيانات والذكاء الاصطناعي</button>
+        <button class="tag-btn active" data-filter="all">All</button>
+        <button class="tag-btn" data-filter="dev">Web Development</button>
+        <button class="tag-btn" data-filter="cloud">Cloud & DevOps</button>
+        <button class="tag-btn" data-filter="data">Data & AI</button>
       </div>
 
-      <!-- تبديل طريقة العرض -->
+      <!-- Layout Toggle Buttons -->
       <div class="view-toggle">
-        <button class="view-btn active" id="btnGrid" title="عرض شبكي"><i class="fa-solid fa-table-cells-large"></i></button>
-        <button class="view-btn" id="btnList" title="عرض قائمة"><i class="fa-solid fa-list"></i></button>
+        <button class="view-btn active" id="btnGrid" title="Grid View"><i class="fa-solid fa-table-cells-large"></i></button>
+        <button class="view-btn" id="btnList" title="List View"><i class="fa-solid fa-list"></i></button>
       </div>
     </div>
 
-    <!-- حاوية الشهادات -->
+    <!-- Certificates Container -->
     <div class="certs-container grid-view" id="certsGrid"></div>
 
-    <!-- زر تحميل المزيد -->
+    <!-- Load More Button -->
     <div class="load-more-wrapper">
-      <button class="btn-load-more" id="btnLoadMore">عرض المزيد من الشهادات</button>
+      <button class="btn-load-more" id="btnLoadMore">Load More Certificates</button>
     </div>
 
   </div>
 
-  <!-- Modal العرض والتنقل -->
+  <!-- Modal for Image Preview & Navigation -->
   <div class="modal" id="certModal">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal()">&times;</button>
-      <button class="modal-nav modal-prev" onclick="navigateModal(1)"><i class="fa-solid fa-chevron-right"></i></button>
-      <img id="modalImg" src="" alt="الشهادة">
-      <button class="modal-nav modal-next" onclick="navigateModal(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="modal-nav modal-prev" onclick="navigateModal(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="modalImg" src="" alt="Certificate Preview">
+      <button class="modal-nav modal-next" onclick="navigateModal(1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </div>
 
   <script>
-    // توليد بيانات وهمية لـ 50 شهادة لغرض المعاينة السريعة
+    // Generate 50 sample certificates (Replace this array with your actual certificate data)
     const categories = ['dev', 'cloud', 'data'];
     const issuers = ['Coursera', 'Udacity', 'AWS', 'Google', 'DeepLearning.AI', 'Microsoft'];
     
     const certificates = Array.from({ length: 50 }, (_, i) => ({
       id: i + 1,
-      title: `شهادة تخصصية احترافية رقم #${i + 1}`,
+      title: `Specialized Professional Certificate #${i + 1}`,
       issuer: issuers[i % issuers.length],
       category: categories[i % categories.length],
       date: `202${(i % 4) + 1}`,
-      image: `https://via.placeholder.com/600x400?text=Certificate+${i + 1}`
+      image: `https://via.placeholder.com/600x400?text=Certificate+${i + 1}`,
+      verifyUrl: '#'
     }));
 
     let visibleCount = 12;
@@ -380,24 +383,26 @@
             <h3 class="cert-title">${cert.title}</h3>
             <div class="cert-meta">
               <span><i class="fa-regular fa-calendar"></i> ${cert.date}</span>
-              <a href="#" style="color:var(--primary); text-decoration:none; font-weight:700;">تحقق <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i></a>
+              <a href="${cert.verifyUrl}" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">
+                Verify <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem"></i>
+              </a>
             </div>
           </div>
         `;
         certsGrid.appendChild(card);
       });
 
-      // إخفاء زر التحميل إذا انتهت العناصر
+      // Hide load more button if no more items to show
       btnLoadMore.style.display = visibleCount >= filteredCerts.length ? 'none' : 'inline-block';
     }
 
-    // زر تحميل المزيد
+    // Load More Action
     btnLoadMore.addEventListener('click', () => {
       visibleCount += 12;
       renderCertificates();
     });
 
-    // البحث والفلترة
+    // Live Search
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase();
       filteredCerts = certificates.filter(c => c.title.toLowerCase().includes(query) || c.issuer.toLowerCase().includes(query));
@@ -405,6 +410,7 @@
       renderCertificates();
     });
 
+    // Tag Filtering
     document.querySelectorAll('.tag-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
@@ -416,7 +422,7 @@
       });
     });
 
-    // تبديل Grid / List
+    // Toggle Grid / List
     document.getElementById('btnGrid').addEventListener('click', function() {
       certsGrid.className = 'certs-container grid-view';
       this.classList.add('active');
@@ -428,7 +434,7 @@
       document.getElementById('btnGrid').classList.remove('active');
     });
 
-    // Modal
+    // Modal Lightbox
     function openModal(index) {
       currentModalIndex = index;
       document.getElementById('modalImg').src = filteredCerts[currentModalIndex].image;
@@ -444,7 +450,7 @@
       document.getElementById('modalImg').src = filteredCerts[currentModalIndex].image;
     }
 
-    // التشغيل الأول
+    // Initial Render
     renderCertificates();
   </script>
 </body>
