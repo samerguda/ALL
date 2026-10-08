@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة محلات الملابس</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        /* قسم الوقت والتاريخ */
+        .datetime-card {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
+        }
+
+        .datetime-card .time {
+            font-size: 2.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .datetime-card .date {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e3c72;
+            font-size: 1.5rem;
+        }
+
+        /* قائمة المحلات */
+        .store-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .store-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .store-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .store-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .store-ar {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .store-en {
+            font-size: 0.9rem;
+            color: #718096;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-copy {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-ar {
+            background-color: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-ar:hover {
+            background-color: #cbd5e0;
+        }
+
+        .btn-en {
+            background-color: #2b6cb0;
+            color: #ffffff;
+        }
+
+        .btn-en:hover {
+            background-color: #2c5282;
+        }
+
+        /* اشعار النسخ */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            background: #2d3748;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- العداد الديناميكي للوقت والتاريخ -->
+        <div class="datetime-card">
+            <div class="time" id="clock">00:00:00</div>
+            <div class="date" id="date">--</div>
+        </div>
+
+        <h2>محلات الملابس | Clothing Stores</h2>
+
+        <!-- قائمة المحلات -->
+        <div class="store-list">
+            
+            <div class="store-item">
+                <div class="store-info">
+                    <span class="store-ar">١- مخزن موني</span>
+                    <span class="store-en">1- Money Store</span>
+                </div>
+                <div class="actions">
+                    <button class="btn-copy btn-ar" onclick="copyText('مخزن موني')">نسخ بالعربي</button>
+                    <button class="btn-copy btn-en" onclick="copyText('Money Store')">Copy EN</button>
+                </div>
+            </div>
+
+            <div class="store-item">
+                <div class="store-info">
+                    <span class="store-ar">٢- ديكاتلون</span>
+                    <span class="store-en">2- Decathlon</span>
+                </div>
+                <div class="actions">
+                    <button class="btn-copy btn-ar" onclick="copyText('ديكاتلون')">نسخ بالعربي</button>
+                    <button class="btn-copy btn-en" onclick="copyText('Decathlon')">Copy EN</button>
+                </div>
+            </div>
+
+            <div class="store-item">
+                <div class="store-info">
+                    <span class="store-ar">٣- نيويوركر</span>
+                    <span class="store-en">3- NewYorker</span>
+                </div>
+                <div class="actions">
+                    <button class="btn-copy btn-ar" onclick="copyText('نيويوركر')">نسخ بالعربي</button>
+                    <button class="btn-copy btn-en" onclick="copyText('NewYorker')">Copy EN</button>
+                </div>
+            </div>
+
+            <div class="store-item">
+                <div class="store-info">
+                    <span class="store-ar">٤- جاك أند جونز</span>
+                    <span class="store-en">4- Jack & Jones</span>
+                </div>
+                <div class="actions">
+                    <button class="btn-copy btn-ar" onclick="copyText('جاك أند جونز')">نسخ بالعربي</button>
+                    <button class="btn-copy btn-en" onclick="copyText('Jack & Jones')">Copy EN</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="toast" id="toast">تم النسخ بنجاح!</div>
+
+    <script>
+        // تحديث الوقت والتاريخ بشكل ديناميكي لحظي
+        function updateDateTime() {
+            const now = new Date();
+            
+            // الوقت
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            document.getElementById('clock').textContent = now.toLocaleTimeString('ar-EG', timeOptions);
+
+            // التاريخ
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('ar-EG', dateOptions);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // وظيفة النسخ إلى الحافظة
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`تم نسخ: "${text}"`);
+            }).catch(err => {
+                console.error('فشل النسخ: ', err);
+            });
+        }
+
+        // إظهار إشعار النسخ
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
