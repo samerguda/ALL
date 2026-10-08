@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل حروف الجر في الفرنسية - Les Prépositions</title>
+  
+  <!-- خط Cairo لتصميم عصري ومريح للقراءة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary-color: #2563eb;
+      --primary-accent: #1d4ed8;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* Navbar & Dynamic Clock Header */
+    .top-bar {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar .title-section h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .clock-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .clock-date {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+      padding-left: 12px;
+    }
+
+    .clock-time {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #38bdf8;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Container Layout */
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Top Features / Quick Search */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-color);
+    }
+
+    /* Data Sections & Cards */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 1rem 1.5rem;
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-header h2 {
+      font-size: 1.1rem;
+      color: var(--text-main);
+    }
+
+    /* Professional Table Styling */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 0.85rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: #fafafa;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .lang-fr {
+      direction: ltr;
+      text-align: left;
+      font-weight: 600;
+      color: var(--primary-accent);
+    }
+
+    /* Top 15 Badges List */
+    .top15-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 1.25rem;
+    }
+
+    .badge-item {
+      background: #eff6ff;
+      color: var(--primary-accent);
+      border: 1px solid #bfdbfe;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      direction: ltr;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .clock-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .clock-date {
+        padding-left: 0;
+        border-left: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header مع العداد الديناميكي -->
+  <header class="top-bar">
+    <div class="title-section">
+      <h1>دليل حروف الجر في الفرنسية (Les prépositions)</h1>
+    </div>
+    
+    <!-- Dynamic Clock & Date -->
+    <div class="clock-container">
+      <div id="liveDate" class="clock-date">--/--/----</div>
+      <div id="liveTime" class="clock-time">00:00:00</div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- شريط البحث -->
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="ابحث عن حرف جر أو كلمة..." onkeyup="filterTables()">
+      </div>
+    </div>
+
+    <!-- Top 15 Section -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>⭐ أهم 15 حرف جر يجب حفظهم أولاً</h2>
+      </div>
+      <div class="top15-list">
+        <span class="badge-item">à</span>
+        <span class="badge-item">de</span>
+        <span class="badge-item">en</span>
+        <span class="badge-item">dans</span>
+        <span class="badge-item">sur</span>
+        <span class="badge-item">sous</span>
+        <span class="badge-item">chez</span>
+        <span class="badge-item">avec</span>
+        <span class="badge-item">sans</span>
+        <span class="badge-item">pour</span>
+        <span class="badge-item">par</span>
+        <span class="badge-item">entre</span>
+        <span class="badge-item">devant</span>
+        <span class="badge-item">derrière</span>
+        <span class="badge-item">depuis</span>
+      </div>
+    </section>
+
+    <!-- Section 1 -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>1. حروف الجر الأساسية</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Français</th>
+              <th>العربية</th>
+              <th>مثال</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="lang-fr">à</td><td>إلى / في / عند</td><td class="lang-fr">Je vais à Paris. = أذهب إلى باريس</td></tr>
+            <tr><td class="lang-fr">de</td><td>من / عن / لـ</td><td class="lang-fr">Je viens de Paris. = آتي من باريس</td></tr>
+            <tr><td class="lang-fr">dans</td><td>داخل / في</td><td class="lang-fr">Il est dans la maison.</td></tr>
+            <tr><td class="lang-fr">sur</td><td>على / فوق</td><td class="lang-fr">Le livre est sur la table.</td></tr>
+            <tr><td class="lang-fr">sous</td><td>تحت</td><td class="lang-fr">Le chat est sous la table.</td></tr>
+            <tr><td class="lang-fr">chez</td><td>عند / لدى</td><td class="lang-fr">Je suis chez le médecin.</td></tr>
+            <tr><td class="lang-fr">avec</td><td>مع</td><td class="lang-fr">Je travaille avec lui.</td></tr>
+            <tr><td class="lang-fr">sans</td><td>بدون</td><td class="lang-fr">Je travaille sans ordinateur.</td></tr>
+            <tr><td class="lang-fr">pour</td><td>من أجل / لـ</td><td class="lang-fr">C’est pour toi.</td></tr>
+            <tr><td class="lang-fr">par</td><td>بواسطة / عن طريق</td><td class="lang-fr">Je voyage par train.</td></tr>
+            <tr><td class="lang-fr">entre</td><td>بين</td><td class="lang-fr">Il est entre Marie et Paul.</td></tr>
+            <tr><td class="lang-fr">devant</td><td>أمام</td><td class="lang-fr">Il est devant la maison.</td></tr>
+            <tr><td class="lang-fr">derrière</td><td>خلف</td><td class="lang-fr">La voiture est derrière la maison.</td></tr>
+            <tr><td class="lang-fr">près de</td><td>بالقرب من</td><td class="lang-fr">J’habite près de Bruxelles.</td></tr>
+            <tr><td class="lang-fr">loin de</td><td>بعيدًا عن</td><td class="lang-fr">Il habite loin de Paris.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>2. حروف جر مهمة جدًا للمكان</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>التركيبة</th>
+              <th>الاستخدام</th>
+              <th>أمثلة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="lang-fr">à</td><td>في/إلى مدينة أو مكان</td><td class="lang-fr">J’habite à Harelbeke. / Je vais à Bruxelles.</td></tr>
+            <tr><td class="lang-fr">en</td><td>في/إلى دولة مؤنثة أو تبدأ بحرف متحرك</td><td class="lang-fr">Je vis en Belgique. / Je vais en France.</td></tr>
+            <tr><td class="lang-fr">au (à + le)</td><td>في/إلى دولة مذكر</td><td class="lang-fr">Je vais au Portugal.</td></tr>
+            <tr><td class="lang-fr">aux (à + les)</td><td>في/إلى دولة جمع</td><td class="lang-fr">Je vais aux États-Unis.</td></tr>
+            <tr><td class="lang-fr">de</td><td>من (مدينة أو دولة مؤنثة)</td><td class="lang-fr">Je viens de Belgique.</td></tr>
+            <tr><td class="lang-fr">du (de + le)</td><td>من (دولة مذكر)</td><td class="lang-fr">Je viens du Portugal.</td></tr>
+            <tr><td class="lang-fr">des (de + les)</td><td>من (دولة جمع)</td><td class="lang-fr">Je viens des États-Unis.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>3. حروف الجر مع الزمن</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Français</th>
+              <th>الاستخدام</th>
+              <th>مثال</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="lang-fr">à</td><td>الساعة</td><td class="lang-fr">Je travaille à 8 heures.</td></tr>
+            <tr><td class="lang-fr">en</td><td>مدة إنجاز شيء</td><td class="lang-fr">J'ai fini le projet en 2 heures.</td></tr>
+            <tr><td class="lang-fr">pendant</td><td>خلال مدة</td><td class="lang-fr">Je vais rester ici pendant 3 jours.</td></tr>
+            <tr><td class="lang-fr">depuis</td><td>منذ</td><td class="lang-fr">J’habite ici depuis 2 ans.</td></tr>
+            <tr><td class="lang-fr">dans</td><td>بعد مدة (مستقبل)</td><td class="lang-fr">Je pars dans 10 minutes.</td></tr>
+            <tr><td class="lang-fr">jusqu’à</td><td>حتى</td><td class="lang-fr">Je travaille jusqu’à 18 heures.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>4. أهم التركيبات والمدمجات (Les articles contractés)</h2>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>التركيب المدمج</th>
+              <th>الأصل</th>
+              <th>مثال</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="lang-fr">au</td><td class="lang-fr">à + le</td><td class="lang-fr">Je vais au restaurant.</td></tr>
+            <tr><td class="lang-fr">aux</td><td class="lang-fr">à + les</td><td class="lang-fr">Je parle aux étudiants.</td></tr>
+            <tr><td class="lang-fr">du</td><td class="lang-fr">de + le</td><td class="lang-fr">Je viens du restaurant.</td></tr>
+            <tr><td class="lang-fr">des</td><td class="lang-fr">de + les</td><td class="lang-fr">Je parle des vacances.</td></tr>
+            <tr><td class="lang-fr">à la / à l’</td><td>لا تتغير</td><td class="lang-fr">Je vais à la banque. / à l'école.</td></tr>
+            <tr><td class="lang-fr">de la / de l’</td><td>لا تتغير</td><td class="lang-fr">Je viens de la banque. / de l'école.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // 1. Dynamic Live Clock & Date Script
+    function updateClock() {
+      const now = new Date();
+
+      // تنسيق التاريخ بالعربية
+      const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = now.toLocaleDateString('ar-EG', dateOptions);
+
+      // تنسيق الوقت (الساعات : الدقائق : الثواني)
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+      // التحديث في الصفحة
+      document.getElementById('liveDate').textContent = formattedDate;
+      document.getElementById('liveTime').textContent = formattedTime;
+    }
+
+    // تشغيل العداد وتحديثه كل ثانية (1000 ملي ثانية)
+    setInterval(updateClock, 1000);
+    updateClock(); // تشغيل فوري أول مرة
+
+    // 2. Search & Filter Script
+    function filterTables() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const rows = document.querySelectorAll('.data-table tbody tr');
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(filter)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
